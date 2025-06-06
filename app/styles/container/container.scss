@@ -5,6 +5,21 @@
     background-color: c.$surface1;
     width: 900px;
     height: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+
+    &__status-bar {
+        background-color: c.$blue050;
+        height: 16px;
+        width: 100%;
+    }
+
+    &__status-bar-filler {
+        background-color: c.$blue100;
+        height: 16px;
+        width: 100%;
+        transform: translateX(-66%);
+    }
 }
 
 
@@ -16,15 +31,13 @@
 }
 
 @media screen and (min-width: 380px) and (max-width: 600px) {
-     .container {
+    .container {
         width: 380px;
         height: 600px;
     }
 }
 
-@media screen and (min-width: 600px) and (max-width: 640px) {
-
-}
+@media screen and (min-width: 600px) and (max-width: 640px) {}
 
 @media screen and (min-width: 640px) and (max-width: 904px) {}
 
