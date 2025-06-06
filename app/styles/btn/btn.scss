@@ -1,0 +1,13 @@
+@use "/app/styles/variables/colors.scss" as c;
+
+
+.btn {
+
+    font-family: regular;
+    color: c.$surface1;
+    background-color: c.$blue100;
+    padding: 10px 24px 10px 24px;
+    border-radius: 30px;
+
+    // &--default {}
+}
