@@ -4,6 +4,6 @@ export default [
     route("", "routes/home.tsx",
         [
             index("routes/welcome.tsx"),
-            route("/testing", "routes/testing.tsx")
+            route("/testing", "routes/imageLoader.tsx")
         ]
     )] satisfies RouteConfig;
