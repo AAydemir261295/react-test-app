@@ -3,14 +3,20 @@
 .upload-list {
 
 
-
     &__upload-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-
+        overflow: hidden;
     }
+
+    &__upload-preview {
+        position: absolute;
+        width: 216px;
+        height: 161px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        z-index: 9;
+        background-color: c.$surface3;
+    }
+
 
     &__input-label {
         display: flex;
@@ -19,14 +25,13 @@
         align-items: center;
         width: 216px;
         height: 161px;
-        border-radius: 5px;
-        background-color: c.$surface3;
-        background-size: 216px 161px;
     }
 
     &__upload-icon {
         background-color: c.$blue050;
         border-radius: 5px;
+        z-index: 10;
+
     }
 
     &__upload-input {
@@ -34,7 +39,6 @@
     }
 
     &__upload-description {
-        // margin-bottom: 10px;
         font-family: regular;
     }
 }
@@ -52,15 +56,28 @@
 
 @media screen and (min-width: 1200px) {
 
+
+    .test {
+        width: 776px;
+        margin-left: 0px;
+
+    }
+
     .upload-list {
         display: flex;
-        flex-direction: row;
-        width: 776px;
-        justify-content: space-between;
+        justify-content: center;
 
-        &__item {
-            width: 216px;
-            height: 191px;
+        &__upload-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__upload-description {
+            display: inline-block;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 10px;
         }
     }
 
