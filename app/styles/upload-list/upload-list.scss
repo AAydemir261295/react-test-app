@@ -1,0 +1,68 @@
+@use "/app/styles/variables/colors.scss" as c;
+
+.upload-list {
+
+
+
+    &__upload-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    &__input-label {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 216px;
+        height: 161px;
+        border-radius: 5px;
+        background-color: c.$surface3;
+        background-size: 216px 161px;
+    }
+
+    &__upload-icon {
+        background-color: c.$blue050;
+        border-radius: 5px;
+    }
+
+    &__upload-input {
+        display: none;
+    }
+
+    &__upload-description {
+        // margin-bottom: 10px;
+        font-family: regular;
+    }
+}
+
+
+@media screen and (min-width: 296px) {}
+
+@media screen and (min-width: 380px) {}
+
+@media screen and (min-width: 600px) {}
+
+@media screen and (min-width: 640px) {}
+
+@media screen and (min-width: 904px) {}
+
+@media screen and (min-width: 1200px) {
+
+    .upload-list {
+        display: flex;
+        flex-direction: row;
+        width: 776px;
+        justify-content: space-between;
+
+        &__item {
+            width: 216px;
+            height: 191px;
+        }
+    }
+
+
+}
