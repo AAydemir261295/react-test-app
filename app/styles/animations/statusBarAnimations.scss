@@ -1,0 +1,20 @@
+@keyframes basePosition {
+    from {}
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+
+@keyframes firstPosition {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(-66%);
+
+    }
+
+}
