@@ -1,7 +1,8 @@
 @use "/app/styles/variables/colors.scss" as c;
+@import url("/app/styles/animations/statusBarAnimations.scss");
 @import url("/app/styles/fonts/fonts.scss");
 @import url("/app/styles/mixins/nostyle.scss");
-@import url("/app/styles/btn/btn.scss");
+@import url("/app/styles/btn-container/btn-container.scss");
 @import url("/app/styles/container/container.scss");
 @import url("/app/styles/imageLoader/imageLoader.scss");
 @import url("/app/styles/upload-list/upload-list.scss");
