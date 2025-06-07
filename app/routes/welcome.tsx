@@ -1,7 +1,9 @@
 import { Link } from "react-router";
 
 export default function Welcome() {
-    return <Link to="/testing">
-        <button className="btn nostyle-btn" >Начать тест</button>
-    </Link>;
+    return <div className="btn-container">
+        <Link to="/testing">
+            <button className="btn-container__btn nostyle-btn" >Начать тест</button>
+        </Link>
+    </div>;
 }
