@@ -1,0 +1,21 @@
+@use "/app/styles/variables/colors.scss" as c;
+
+
+.btn {
+    font-family: regular;
+    border-radius: 30px;
+    transition: 0.2s;
+
+}
+
+.btn:hover {
+    background-color: c.$blue110;
+    color: c.$surface1;
+}
+
+.btn--disabled {
+    color: c.$disabled;
+    background-color: c.$disabledBtn;
+}
+
+.btn--default {}
