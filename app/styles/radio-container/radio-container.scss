@@ -1,0 +1,57 @@
+@use "/app/styles/variables/colors.scss" as c;
+
+.radio-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &__radio {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    &__checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: c.$surface5;
+        border-radius: 50%;
+    }
+}
+
+.radio-container input:checked~.radio-container__checkmark {
+    background-color: c.$blue100;
+}
+
+.radio-container:hover input~.radio-container__checkmark {
+    background-color: #ccc;
+}
+
+.radio-container__checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.radio-container input:checked~.radio-container__checkmark:after {
+    display: block;
+}
+
+.radio-container .radio-container__checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
