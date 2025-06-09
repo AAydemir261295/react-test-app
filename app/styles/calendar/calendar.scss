@@ -2,9 +2,112 @@
 
 
 .calendar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     width: 280px;
     height: 280px;
     border-radius: 8px;
     background-color: c.$surface1;
     box-shadow: 0px 32px 32px 0px c.$shadowY32, 0px 0px 32px 0px c.$shadowY0;
+
+
+    &__header {
+        width: 280px;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        font-family: bold;
+    }
+
+    &__header-left {
+        background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 7L10 12L15 17' stroke='%23293244' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+        background-repeat: no-repeat;
+        background-position: 50%;
+        width: 30px;
+        height: 30px;
+        // to remove img outline with empty src
+        border: 3px solid transparent;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    &__header-month-year-wrapp {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 130px;
+    }
+
+    &__header-month {
+        font-size: 18px;
+        color: c.$default;
+    }
+
+    &__header-year {
+        font-size: 18px;
+        color: c.$muted;
+    }
+
+    &__header-right {
+        background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 17L15 12L10 7' stroke='%23293244' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+        background-repeat: no-repeat;
+        background-position: 50%;
+        width: 30px;
+        height: 30px;
+        // to remove img outline with empty src
+        border: 3px solid transparent;
+        border-radius: 50%;
+        cursor: pointer;
+
+    }
+
+
+    &__days-names {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 280px;
+        height: 15px;
+        font-family: regular;
+        font-size: 12px;
+        color: c.$muted;
+    }
+
+    &__days {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-around;
+        width: 280px;
+        font-family: regular;
+        font-size: 14px;
+        color: c.$default;
+    }
+
+    &__day {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 31px;
+        height: 31px;
+        text-align: center;
+        border: 3px solid transparent;
+        border-radius: 8px;
+    }
+
+    &__day-actual {}
+
+    &__day--hoverable:hover {
+        cursor: pointer;
+        border: 3px solid c.$violet110;
+    }
+
+
+    &__day--today {
+        background-color: c.$violet110;
+        color: c.$surface1;
+    }
 }
