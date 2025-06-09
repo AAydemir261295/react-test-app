@@ -1,4 +1,5 @@
 import { useRef, useState, type RefObject } from "react";
+import { Link } from "react-router";
 
 export function ImageLoaderComponent() {
     var descriptions = ["Дом, дерево, человек", "Несуществующее животное", "Автопортрет"];
@@ -58,7 +59,9 @@ export function ImageLoaderComponent() {
         </form>
         <footer className="image-loader__footer">
             <span className="stage">Шаг 1/3</span>
-            <button className="image-loader__footer-btn btn btn--disabled nostyle-btn">Далее</button>
+            <Link to="/testing/2">
+                <button className="image-loader__footer-btn btn btn--disabled nostyle-btn">Далее</button>
+            </Link>
         </footer>
     </div>
 }
