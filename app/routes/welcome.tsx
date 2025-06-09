@@ -1,9 +1,9 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function Welcome() {
+    var navigate = useNavigate();
+
     return <div className="btn-container">
-        <Link to="/testing/1">
-            <button className="btn-container__btn btn nostyle-btn" >Начать тест</button>
-        </Link>
-    </div>;
+        <button className="btn-container__btn btn nostyle-btn" onClick={() => { navigate("/testing/1", { state: { previous: "" } }) }}>Начать тест</button>
+    </div >;
 }
