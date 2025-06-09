@@ -1,11 +1,10 @@
-import { Calendar } from "./Calendar/CalendarComponent";
+import { CalendarComponent } from "./Calendar/CalendarComponent";
 
 export function FormComponent() {
 
     return <div className="form">
 
-        <Calendar></Calendar>
-        {/* <header>
+        <header>
             <h3>Общая информация о ребенке</h3>
         </header>
 
@@ -19,7 +18,8 @@ export function FormComponent() {
 
                 <div>
                     <p>Дата рождения ребенка</p>
-                    <Calendar></Calendar>
+                    {/* <CalendarComponent></CalendarComponent> */}
+
                 </div>
 
 
@@ -225,6 +225,6 @@ export function FormComponent() {
                     </fieldset>
                 </li>
             </ul>
-        </form> */}
+        </form>
     </div >;
 } 
