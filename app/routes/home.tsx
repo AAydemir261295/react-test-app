@@ -1,7 +1,7 @@
 import type { Route } from "../+types/root";
 import { Outlet, useLocation } from "react-router";
 import { useRef } from "react";
-import { StatusBar } from "~/components/StatusBar/statusBar";
+import { StatusBar } from "~/components/StatusBar/StatusBar";
 
 export function meta({ }: Route.MetaArgs) {
   return [
