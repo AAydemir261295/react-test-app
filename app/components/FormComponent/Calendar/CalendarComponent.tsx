@@ -1,33 +1,11 @@
-// import Calendar from "react-calendar";
-// import { formatDate, formatYear } from "react-calendar/dist/shared/dateFormatter.js";
-
 import { useState } from "react";
 
 
-// export function CalendarComponent(){
+export function CalendarComponent(props) {
 
 
-//     return <Calendar 
-//     className="calendar" 
-//     locale="ru" 
-//     onClickYear={() => {}}
-
-//     // formatYear={(l, d) => d.getFullYear() + ""}
-//     //  formatShortWeekday = {(locale, date) => ['S', 'M', 'T', 'W', 'T', 'F', 'S'][date.getDay()]}
-//     showNeighboringMonth={false}
-//     defaultActiveactualDate={new Date(2017, 5, 9)}
-//     prev2Label={null} 
-//     next2Label={null} 
-
-//     ></Calendar>;
-// }
-
-
-
-export function CalendarComponent() {
-
-    const [actualDate, setActualDate] = useState(new Date(Date.now()));
-
+    const [actualDate, setActualDate] = useState(props.today);
+    var days = [];
 
     function parseMonth() {
         var tmp = actualDate.toLocaleString("ru-RU", { month: "long" })
@@ -43,7 +21,6 @@ export function CalendarComponent() {
         setActualDate(new Date(actualDate.setMonth(actualDate.getMonth() + 1)));
     }
 
-    var days = [];
 
     function getDays() {
         let year = actualDate.getFullYear();
@@ -63,12 +40,15 @@ export function CalendarComponent() {
             let isToday = i === actualDate.getDate()
                 && month === new Date().getMonth()
                 && year === new Date().getFullYear();
+
+            let t = new Date(year, month, i);
+
             if (isToday) {
                 days.push(
-                    <li key={i} className='calendar__day calendar__day--today'>{i}</li>)
+                    <li key={i} className='calendar__day calendar__day--today' onClick={() => { props.updateInput(t) }}>{i}</li>)
             } else {
                 days.push(
-                    <li key={i} className='calendar__day calendar__day--hoverable'>{i}</li>)
+                    <li key={i} className='calendar__day calendar__day--hoverable' onClick={() => { props.updateInput(t) }}>{i}</li>)
             }
         }
 
@@ -80,7 +60,8 @@ export function CalendarComponent() {
 
     getDays();
 
-    return <div className="calendar">
+
+    return <div className={`calendar ${props.showCalendar}`}>
         <header className="calendar__header">
             <img className="calendar__header-left" onClick={() => { decrementMonth(); }} alt="" />
             {/* <span className="calendar__header-left">&lt;</span> */}
