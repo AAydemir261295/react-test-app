@@ -14,7 +14,7 @@ export default function Home() {
 
   return <main>
     <div className="container">
-      <StatusBar route={location.pathname}></StatusBar>
+      <StatusBar route={location}></StatusBar>
       <Outlet />
     </div>
   </main>;
