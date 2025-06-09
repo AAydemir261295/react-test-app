@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, type RefObject } from "react";
 
 export function ImageLoaderComponent() {
     var descriptions = ["Дом, дерево, человек", "Несуществующее животное", "Автопортрет"];
@@ -6,18 +6,27 @@ export function ImageLoaderComponent() {
     var items = [];
 
     var previewRefs = useRef([]);
+    var uploadShareIconRefs = useRef([]);
 
-    var icons = { upload: "/assets/icons/upload-icon.svg", refresh: "" }
+    var icons = { upload: "/assets/icons/upload-icon.svg", refresh: "/assets/icons/refresh-icon.svg" }
 
 
-    function onChange(e: React.ChangeEvent<HTMLInputElement>, idx: number, previewEle: HTMLImageElement) {
+    function onChange(e: React.ChangeEvent<HTMLInputElement>, idx: number, previewEle: HTMLImageElement, switchIcon: HTMLImageElement) {
+        if (!e.target.files) {
+            return;
+        }
         var file = e.target.files[0];
         var reader = new FileReader();
         var url = reader.readAsDataURL(file);
 
         reader.onloadend = function (e) {
-            previewEle.src = reader.result == null ? "" : reader.result;
+            previewEle.src = reader.result == null ? "" : reader.result as string;
+            switchIcon.src = icons.refresh;
         };
+    }
+
+    function refreshImg(previewEle: HTMLImageElement, switchIcon: HTMLImageElement) {
+        previewEle.src = "";
     }
 
 
@@ -28,9 +37,9 @@ export function ImageLoaderComponent() {
                 <figure className="upload-list__upload-wrapper">
                     <img ref={(ele) => { previewRefs.current[q] = ele; }} className="upload-list__upload-preview" src="null" alt="" />
                     <label className="upload-list__input-label" htmlFor={`fileInput${q}`}>
-                        <img src={icons.upload} className="upload-list__upload-icon" width={64} height={64} id="icon" alt={`Загрузите фотографию: ${description}`} />
+                        <img ref={(ele1) => { uploadShareIconRefs.current[q] = ele1 }} src={icons.upload} className="upload-list__upload-icon" width={64} height={64} alt={`Загрузите фотографию: ${description}`} onClick={() => { refreshImg(previewRefs.current[q], uploadShareIconRefs.current[q]) }} />
                     </label>
-                    <input onChange={(e) => onChange(e, q, previewRefs.current[q])} className="upload-list__upload-input" id={`fileInput${q}`} type="file" />
+                    <input onChange={(e) => onChange(e, q, previewRefs.current[q], uploadShareIconRefs.current[q])} className="upload-list__upload-input" id={`fileInput${q}`} type="file" />
                     <figcaption className="upload-list__upload-description">{description}</figcaption>
                 </figure>
             </li>
@@ -45,33 +54,6 @@ export function ImageLoaderComponent() {
         <form className="test" action="">
             <ul className="nostyle-list upload-list">
                 {items}
-                {/* <li className="upload-list__item">
-                    <figure className="upload-list__upload-wrapper">
-                        <label className="upload-list__input-label" htmlFor="fileInput">
-                            <img ref={(ele) => { previewRefs.current[0] = ele; console.log(ele) }} src="/assets/icons/upload-icon.svg" className="upload-list__upload-icon" width={64} height={64} id="icon" alt={`Загрузите фотографию: ${descriptions[0]}`} />
-                        </label>
-                        <input onChange={(e) => onChange(e, 0)} className="upload-list__upload-input" id="fileInput" type="file" />
-                        <figcaption className="upload-list__upload-description">{descriptions[0]}</figcaption>
-                    </figure>
-                </li>
-                <li className="upload-list__item">
-                    <figure className="upload-list__upload-wrapper">
-                        <label className="upload-list__input-label" htmlFor="fileInput1">
-                            <img ref={(ele) => { previewRefs.current[1] = ele; console.log(ele) }} src="/assets/icons/upload-icon.svg" className="upload-list__upload-icon" width={64} height={64} id="icon" alt={`Загрузите фотографию: ${descriptions[1]}`} />
-                        </label>
-                        <input onChange={(e) => onChange(e, 1)} className="upload-list__upload-input" id="fileInput1" type="file" />
-                        <figcaption className="upload-list__upload-description">{descriptions[1]}</figcaption>
-                    </figure>
-                </li>
-                <li className="upload-list__item">
-                    <figure className="upload-list__upload-wrapper">
-                        <label className="upload-list__input-label" htmlFor="fileInput2">
-                            <img ref={(ele) => { previewRefs.current[2] = ele; console.log(ele) }} src="/assets/icons/upload-icon.svg" className="upload-list__upload-icon" width={64} height={64} id="icon" alt={`Загрузите фотографию: ${descriptions[2]}`} />
-                        </label>
-                        <input onChange={(e) => onChange(e, 2)} className="upload-list__upload-input" id="fileInput2" type="file" />
-                        <figcaption className="upload-list__upload-description">{descriptions[2]}</figcaption>
-                    </figure>
-                </li> */}
             </ul>
         </form>
         <footer className="image-loader__footer">
