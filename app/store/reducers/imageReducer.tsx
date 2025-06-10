@@ -6,7 +6,6 @@ const imageReducer = createSlice({
     initialState: { images: { 0: "null", 1: "null", 2: "null" }, icons: { 0: "upload", 1: "upload", 2: "upload" }, uploadCount: 0 },
     reducers: {
         saveImages(state, action) {
-            console.log(action);
             return state = { ...state, images: { ...action.payload }, uploadCount: 3 };
         },
         refreshImage(state, action) {
