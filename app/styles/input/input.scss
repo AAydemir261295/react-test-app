@@ -1,0 +1,12 @@
+@use "/app/styles/variables/colors.scss" as c;
+
+
+.input {
+    height: 40px;
+    border-radius: 6px;
+    border: 1px solid c.$muted;
+}
+
+.input:focus {
+    border: 1px solid c.$violet110;
+}
