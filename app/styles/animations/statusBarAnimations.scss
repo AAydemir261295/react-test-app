@@ -16,5 +16,37 @@
         transform: translateX(-66%);
 
     }
+}
 
+
+@keyframes fromSecondToFirst {
+    from {
+        transform: translateX(-33%);
+    }
+
+    to {
+        transform: translateX(-66%);
+
+    }
+}
+
+
+@keyframes secondPosition {
+    from {
+        transform: translateX(-66%);
+    }
+
+    to {
+        transform: translateX(-33%);
+    }
+}
+
+@keyframes thirdPostion {
+    from {
+        transform: translateX(-33%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
 }
