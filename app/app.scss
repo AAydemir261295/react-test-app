@@ -6,19 +6,20 @@
 @import url("/app/styles/container/container.scss");
 @import url("/app/styles/imageLoader/imageLoader.scss");
 @import url("/app/styles/upload-list/upload-list.scss");
-@import url("/app/styles/stage/stage.scss");
 @import url("/app/styles/btn/btn.scss");
 @import url("/app/styles/calendar/calendar.scss");
 @import url("/app/styles/form/form.scss");
 @import url("/app/styles/radio-container/radio-container.scss");
-
+@import url("/app/styles/input/input.scss");
+@import url("/app/styles/input/textarea.scss");
+@import url("/app/styles/four-fieldset/four-fieldset.scss");
+@import url("/app/styles/form-footer/form-footer.scss");
 
 html {
   margin: auto;
   height: 100%;
   width: 100%;
   background-color: c.$surface3;
-
 }
 
 
