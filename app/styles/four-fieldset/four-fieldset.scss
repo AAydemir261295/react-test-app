@@ -1,0 +1,32 @@
+.four-fieldset {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__question {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 50px;
+    }
+
+    &__legend {
+        font-family: regular;
+        font-size: 16px;
+    }
+
+    &__textarea-container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+    }
+
+    &__textarea-label{
+        font-family: regular;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    
+
+}
