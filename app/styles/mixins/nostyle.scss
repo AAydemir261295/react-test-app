@@ -5,23 +5,30 @@
 }
 
 .nostyle-btn {
-    cursor: pointer;
-    border: none;
-    margin: 0;
-    padding: 0;
-    width: auto;
-    overflow: visible;
-    background: transparent;
-    font: inherit;
-    line-height: normal;
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  font: inherit;
+  line-height: normal;
 }
 
-// .nostyle-input {
-//   border: none;
-//   background-image: none;
-//   background-color: transparent;
-//   box-shadow: none;
-//   outline: none;
-//   margin: 0px;
-//   padding: 0px;
-// }
+.nostyle-input {
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.nostyle-fieldset {
+  border: none;
+  margin: 0px;
+  padding: 0px;
+}
+
