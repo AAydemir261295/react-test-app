@@ -1,13 +1,17 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateDate } from "~/store/reducers/formReducer";
 
 
 export function CalendarComponent(props) {
+    var dispatch = useDispatch();
+    var today = useSelector(state => state.form)
 
-
-    const [actualDate, setActualDate] = useState(props.today);
+    const [actualDate, setActualDate] = useState(new Date(today['date']));
     var days = [];
 
     function parseMonth() {
+
         var tmp = actualDate.toLocaleString("ru-RU", { month: "long" })
         var b = tmp.charAt(0);
         return b.toUpperCase() + tmp.slice(1, tmp.length);
@@ -19,6 +23,13 @@ export function CalendarComponent(props) {
 
     function incrementMonth() {
         setActualDate(new Date(actualDate.setMonth(actualDate.getMonth() + 1)));
+    }
+
+    function chooseDay(timeStamp: Date) {
+        // var tmp = timeStamp.toLocaleDateString("RU", { day: "2-digit", month: "2-digit", year: "numeric" })
+        // var date = tmp.split(".");
+        // var result = [date[2], date[1], date[0]].join("-");
+        dispatch(updateDate(timeStamp.getTime()))
     }
 
 
@@ -45,10 +56,10 @@ export function CalendarComponent(props) {
 
             if (isToday) {
                 days.push(
-                    <li key={i} className='calendar__day calendar__day--today' onClick={() => { props.updateInput(t) }}>{i}</li>)
+                    <li key={i} className='calendar__day calendar__day--today' onClick={() => { chooseDay(t) }}>{i}</li>)
             } else {
                 days.push(
-                    <li key={i} className='calendar__day calendar__day--hoverable' onClick={() => { props.updateInput(t) }}>{i}</li>)
+                    <li key={i} className='calendar__day calendar__day--hoverable' onClick={() => { chooseDay(t) }}>{i}</li>)
             }
         }
 
