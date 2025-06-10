@@ -19,7 +19,7 @@ export default function Home() {
 
   return <Provider store={store}><main>
     <div className="container">
-      <button onClick={() => console.log(store.getState())}>asfdf</button>
+      {/* <button onClick={() => console.log(store.getState())}>asfdf</button> */}
       <StatusBar route={location}></StatusBar>
       <Outlet />
     </div>
