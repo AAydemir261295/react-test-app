@@ -1,0 +1,56 @@
+@use "/app/styles/variables/colors.scss" as c;
+
+
+.form-footer {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 776px;
+    margin-top: 50px;
+
+    &__btn {
+        height: 40px;
+    }
+
+    &__btn-next {
+        content: '\2192';
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 30px;
+        margin-left: 15px;
+        margin-bottom: 5px;
+
+    }
+
+    &__btn-result {
+
+        &::after {
+            //  content: '\2192';
+            //     display: inline-block;
+            //     vertical-align: middle;
+            //     font-size: 30px;
+            //     margin-left: 15px;
+            //     margin-bottom: 5px;
+        }
+    }
+
+    &__btn-previous {
+
+        &::before {
+            //  content: '\2192';
+            //     display: inline-block;
+            //     vertical-align: middle;
+            //     font-size: 30px;
+            //     margin-left: 15px;
+            //     margin-bottom: 5px;}
+        }
+    }
+
+
+    &__stage {
+        font-family: regular;
+        color: c.$muted;
+    }
+}
