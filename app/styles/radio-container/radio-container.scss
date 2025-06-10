@@ -1,57 +1,70 @@
 @use "/app/styles/variables/colors.scss" as c;
 
+
 .radio-container {
-    display: block;
     position: relative;
-    padding-left: 35px;
+    padding-left: 25px;
     margin-bottom: 12px;
     cursor: pointer;
-    font-size: 22px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    font-family: regular;
+    font-size: 14px;
+    width: 100%;
+
+    &__input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    &__input:checked+&__checkmark {
+        background-color: c.$blue100;
+    }
+
+
+    &__label {
+        position: absolute;
+        top: 3px;
+        width: 100px;
+    }
 
     &__checkmark {
         position: absolute;
         top: 0;
         left: 0;
-        height: 25px;
-        width: 25px;
+        height: 20px;
+        width: 20px;
         background-color: c.$surface5;
         border-radius: 50%;
     }
-}
 
-.radio-container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-}
+    &__checkmark::after {
+        content: "";
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+        display: none;
 
-.radio-container input:checked~.radio-container__checkmark {
-    background-color: c.$blue100;
-}
+    }
 
-.radio-container:hover input~.radio-container__checkmark {
-    background-color: #ccc;
-}
+    &__input:checked~.radio-container__checkmark:after {
+        display: block;
+    }
 
-.radio-container__checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
+    &:hover &__checkmark {
+        background-color: #ccc;
+    }
 
-.radio-container input:checked~.radio-container__checkmark:after {
-    display: block;
-}
-
-.radio-container .radio-container__checkmark:after {
-    top: 9px;
-    left: 9px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: white;
+    &__text {
+        position: absolute;
+        top: 2px;
+        text-wrap: nowrap;
+    }
 }
