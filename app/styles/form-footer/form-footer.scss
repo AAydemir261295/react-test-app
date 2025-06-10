@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     width: 776px;
     margin-top: 50px;
 
@@ -15,37 +15,23 @@
     }
 
     &__btn-next {
-        content: '\2192';
-        display: inline-block;
-        vertical-align: middle;
-        font-size: 30px;
-        margin-left: 15px;
-        margin-bottom: 5px;
-
+        width: 125px;
     }
 
     &__btn-result {
-
-        &::after {
-            //  content: '\2192';
-            //     display: inline-block;
-            //     vertical-align: middle;
-            //     font-size: 30px;
-            //     margin-left: 15px;
-            //     margin-bottom: 5px;
-        }
+        width: 209px;
     }
 
     &__btn-previous {
+        width: 264px;
+    }
 
-        &::before {
-            //  content: '\2192';
-            //     display: inline-block;
-            //     vertical-align: middle;
-            //     font-size: 30px;
-            //     margin-left: 15px;
-            //     margin-bottom: 5px;}
-        }
+    &__buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 481px;
+
     }
 
 
