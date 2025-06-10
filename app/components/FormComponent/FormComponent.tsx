@@ -1,6 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { CalendarComponent } from "./Calendar/CalendarComponent";
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { saveForm } from "~/store/reducers/formReducer";
+
+const inputNames = [
+    "child-name,date", "sex", "parent-name",
+    "radosti0", "radosti1", "grusti2", "grusti3",
+    "friends0", "friends1", "alone2", "alone3",
+    "free0", "free1", "dangerous2", "dangerous3",
+    "confidence0", "confidence1", "uncertainty2",
+    "uncertainty3", "child-emotions", "peculiarities",
+    "talents", "attention", "psy"
+]
 
 const chapters = [
     {
@@ -51,10 +63,14 @@ const chapters = [
 
 export function FormComponent() {
     var navigate = useNavigate();
-    var [date, setDate] = useState(new Date(Date.now()));
+    var dispatch = useDispatch();
+    // var [date, setDate] = useState(new Date(Date.now()));
     var [isVisible, setIsVisible] = useState("calendar--invisible");
-    // var [form, setForm] = useState({});
+    var formState = useSelector(state => state.form);
+
     var formRef = useRef(null);
+
+    var radios = new Map();
 
     useEffect(() => {
         var calendar = document.querySelector(".calendar");
@@ -75,9 +91,49 @@ export function FormComponent() {
     }
 
 
+    function prepareRadios() {
+        
+    }
+
+    function storeForm(formData: FormData) {
+        if (formData) {
+            let values = formData.entries();
+            let result = new Map();
+            for (const pair of values) {
+                let key = pair[0];
+                let value = pair[1] as string;
+                if (key == "date") {
+                    var date = value.split(".");
+                    console.log(date);
+                    value = [date[2], date[1], date[0]].join("-");
+                    result.set(key, value);
+                } else if (value == "on") {
+                } else {
+                    result.set(key, { value: value });
+                }
+            }
+            console.log(new Map([...result, ...radios]));
+
+            dispatch(saveForm({ ...Object.fromEntries(result) }));
+        }
+    }
+
+    function onChangeRadio(e) {
+        // often on dangerous3
+
+        var target = e.target;
+        var id = target.id;
+        var value = target.value;
+        var name = target.name;
+        radios.set(name, { value: id });
+        console.log(id + " " + value + " " + name);
+
+
+    }
+
     var items = [];
 
-    function temp() {
+    function drawItems() {
         for (let q = 0; q < chapters.length; q++) {
             const chapter = chapters[q];
 
@@ -93,7 +149,7 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input className="radio-container__input" type="radio" id="very-rare" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
+                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="very-rare" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Очень редко</span>
                                 </label>
@@ -101,7 +157,7 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input className="radio-container__input" type="radio" id="rare" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
+                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="rare" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Редко</span>
                                 </label>
@@ -109,7 +165,7 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input className="radio-container__input" type="radio" id="sometimes" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
+                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="sometimes" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Иногда</span>
                                 </label>
@@ -117,7 +173,7 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input className="radio-container__input" type="radio" id="often" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
+                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="often" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Часто</span>
                                 </label>
@@ -125,7 +181,7 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input className="radio-container__input" type="radio" id="always" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
+                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="always" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Всегда</span>
                                 </label>
@@ -140,7 +196,7 @@ export function FormComponent() {
         }
     }
 
-    temp();
+    drawItems();
 
 
     return <div className="form">
@@ -152,13 +208,13 @@ export function FormComponent() {
 
             <div className="form__child-name-container">
                 <label className="form__child-name-label" htmlFor="child-name">Имя ребенка</label>
-                <input className="nostyle-input input" type="text" id="child-name" name="child-name" />
+                <input className="nostyle-input input" type="text" id="child-name" name="child-name" defaultValue={formState['child-name']} />
             </div>
 
             <div className="form__date-input-container">
                 <label className="form__date-input-label">Дата рождения ребенка</label>
-                <input className="form__date-input nostyle-input input" name="date" type="text" onClick={() => showCalendar()} value={date.toLocaleDateString("RU", { day: "2-digit", month: "2-digit", year: "numeric" })} readOnly />
-                <CalendarComponent className="form__date-input-calendar" today={date} updateInput={setDate} showCalendar={isVisible}></CalendarComponent>
+                <input className="form__date-input nostyle-input input" value={new Date(formState['date']).toLocaleDateString("RU", { day: "2-digit", month: "2-digit", year: "numeric" })} name="date" type="text" onClick={() => showCalendar()} readOnly />
+                <CalendarComponent className="form__date-input-calendar" showCalendar={isVisible}></CalendarComponent>
             </div>
 
 
@@ -168,20 +224,19 @@ export function FormComponent() {
                 <div className="form__child-sex-radios">
                     <div>
                         <label className="radio-container">
-                            <input className="radio-container__input" type="radio" name="sex" />
+                            <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="man" name="sex" />
                             <span className="radio-container__checkmark"></span>
                             <span className="radio-container__text">Мужской</span>
                         </label>
                     </div>
                     <div>
                         <label className="radio-container">
-                            <input className="radio-container__input" type="radio" name="sex" />
+                            <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="woman" name="sex" />
                             <span className="radio-container__checkmark"></span>
                             <span className="radio-container__text">Женский</span>
                         </label>
                     </div>
                 </div>
-
             </fieldset>
 
             <div className="form__parent-name-container">
@@ -214,7 +269,7 @@ export function FormComponent() {
                         <div className="four-fieldset__question">
                             <div >
                                 <label className="radio-container" >
-                                    <input className="radio-container__input" type="radio" id="very-rare" name="child-emotions" />
+                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="very-rare" name="child-emotions" />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Очень редко</span>
                                 </label>
@@ -222,7 +277,7 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input className="radio-container__input" type="radio" id="rare" name="child-emotions" />
+                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="rare" name="child-emotions" />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Редко</span>
                                 </label>
@@ -230,7 +285,7 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input className="radio-container__input" type="radio" id="sometimes" name="child-emotions" />
+                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="sometimes" name="child-emotions" />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Иногда</span>
                                 </label>
@@ -238,7 +293,7 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input className="radio-container__input" type="radio" id="often" name="child-emotions" />
+                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="often" name="child-emotions" />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Часто</span>
                                 </label>
@@ -246,7 +301,7 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input className="radio-container__input" type="radio" id="always" name="child-emotions" />
+                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="always" name="child-emotions" />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Всегда</span>
                                 </label>
@@ -283,7 +338,11 @@ export function FormComponent() {
 
             <div className="form-footer__buttons">
                 <button className="form-footer__btn form-footer__btn-previous btn btn--previous btn-smooth nostyle-btn" onClick={(e) => { navigate("/testing/1") }}>К загрузке рисунков</button>
-                <button className="form-footer__btn form-footer__btn-result btn btn--result btn--disabled nostyle-btn" onClick={(e) => console.log(new FormData(formRef.current))}>Узнать результаты</button>
+                <button className="form-footer__btn form-footer__btn-result btn btn--result btn--disabled nostyle-btn" onClick={
+                    (e) => {
+                        storeForm(new FormData(formRef.current));
+                    }
+                }>Узнать результаты</button>
             </div>
         </footer>
     </div >;
