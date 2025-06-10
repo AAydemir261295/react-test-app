@@ -1,21 +1,26 @@
 import { useRef, useState, type RefObject } from "react";
-import { Link, useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { refreshImage, saveImages, updateIcon } from "~/store/reducers/imageReducer";
 
 export function ImageLoaderComponent() {
-    let navigate = useNavigate();
+    var icons = { upload: "/assets/icons/upload-icon.svg", refresh: "/assets/icons/refresh-icon.svg" }
+    var dispatch = useDispatch();
+    var navigate = useNavigate();
+    var imagesSrc = useSelector(state => state.images);
+    var [uploadCount, setUploadCount] = useState(imagesSrc.uploadCount);
+    var [uploadIcons, setUploadIcons] = useState([icons[imagesSrc.icons[0]], icons[imagesSrc.icons[1]], icons[imagesSrc.icons[2]]]);
 
+    console.log(uploadIcons);
     var descriptions = ["Дом, дерево, человек", "Несуществующее животное", "Автопортрет"];
 
     var items = [];
 
     var previewRefs = useRef([]);
-    var uploadShareIconRefs = useRef([]);
 
-    var icons = { upload: "/assets/icons/upload-icon.svg", refresh: "/assets/icons/refresh-icon.svg" }
 
-    var uploadCount = 0;
 
-    function onChange(e: React.ChangeEvent<HTMLInputElement>, idx: number, previewEle: HTMLImageElement, switchIcon: HTMLImageElement) {
+    function onChange(e: React.ChangeEvent<HTMLInputElement>, idx: number, previewEle: HTMLImageElement) {
         if (!e.target.files) {
             return;
         }
@@ -25,31 +30,38 @@ export function ImageLoaderComponent() {
 
         reader.onloadend = function (e) {
             previewEle.src = reader.result == null ? "" : reader.result as string;
-            switchIcon.src = icons.refresh;
-            ++uploadCount;
+            let update: { [t: number]: string } = {};
+            update[idx] = "refresh";
+            const t = uploadIcons.map((v, i) => i == idx ? icons.refresh : v);
+            setUploadIcons(t);
+            dispatch(updateIcon(update))
+            setUploadCount(uploadCount + 1);
         };
     }
 
-    function refreshImg(previewEle: HTMLImageElement) {
-        previewEle.src = "";
-    }
 
+    function uploadImages() {
+        dispatch(saveImages(
+            { 0: previewRefs.current[0].src, 1: previewRefs.current[1].src, 2: previewRefs.current[2].src })
+        );
+    }
 
     for (let q = 0; q < 3; q++) {
         const description = descriptions[q];
         items.push(
             <li key={q} className="upload-list__item">
                 <figure className="upload-list__upload-wrapper">
-                    <img ref={(ele) => { previewRefs.current[q] = ele; }} className="upload-list__upload-preview" src="null" alt="" />
+                    <img ref={(ele) => { previewRefs.current[q] = ele; }} className="upload-list__upload-preview" src={imagesSrc.images[q]} alt="" />
                     <label className="upload-list__input-label" htmlFor={`fileInput${q}`}>
-                        <img ref={(ele1) => { uploadShareIconRefs.current[q] = ele1 }} src={icons.upload} className="upload-list__upload-icon" width={64} height={64} alt={`Загрузите фотографию: ${description}`} onClick={() => { refreshImg(previewRefs.current[q]) }} />
+                        <img src={uploadIcons[q]} className="upload-list__upload-icon" width={64} height={64} alt={`Загрузите фотографию: ${description}`} />
                     </label>
-                    <input onChange={(e) => onChange(e, q, previewRefs.current[q], uploadShareIconRefs.current[q])} className="upload-list__upload-input" id={`fileInput${q}`} type="file" />
+                    <input onChange={(e) => onChange(e, q, previewRefs.current[q])} className="upload-list__upload-input" id={`fileInput${q}`} type="file" />
                     <figcaption className="upload-list__upload-description">{description}</figcaption>
                 </figure>
             </li>
         )
     }
+
 
 
 
@@ -59,14 +71,20 @@ export function ImageLoaderComponent() {
             <span className="image-loader__header-info-text">Допустимые форматы файлов: jpg, jpeg, png, pdf. Размер не более 5 Мб</span>
         </header>
 
-        <form className="test" action="">
+        <form className="test">
             <ul className="nostyle-list upload-list">
                 {items}
             </ul>
         </form>
-        <footer className="image-loader__footer">
-            <span className="stage">Шаг 1/3</span>
-            <button className="image-loader__footer-btn btn btn--disabled nostyle-btn" onClick={() => { if (uploadCount >= 3) { navigate("/testing/2", { state: { previous: "/testing/1" } }) } }}>Далее</button>
+        <footer className="form-footer">
+            <span className="form-footer__stage">Шаг 1/3</span>
+            <button className="form-footer__btn form-footer__btn-next btn btn--next btn--disabled nostyle-btn"
+                onClick={() => {
+                    if (uploadCount >= 3) {
+                        navigate("/testing/2", { state: { previous: "/testing/1" } });
+                        uploadImages();
+                    }
+                }}>Далее</button>
         </footer>
     </div>
 }
