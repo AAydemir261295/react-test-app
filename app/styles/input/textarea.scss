@@ -1,0 +1,13 @@
+@use "/app/styles/variables/colors.scss" as c;
+
+.textarea {
+    resize: none;
+    outline: none;
+    border-radius: 6px;
+    border: 1px solid c.$muted;
+    height: 96px;
+}
+
+.textarea:focus {
+    border: 1px solid c.$violet110;
+}
