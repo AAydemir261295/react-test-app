@@ -56,7 +56,6 @@ const chapters = [
             "Ребенок часто сомневается в себе",
         ],
         names: ["confidence", "uncertainty"],
-
     }
 ]
 
@@ -72,6 +71,7 @@ export function FormComponent() {
 
     var radios = new Map();
 
+
     useEffect(() => {
         var calendar = document.querySelector(".calendar");
         var input = document.querySelector(".form__date-input");
@@ -79,7 +79,6 @@ export function FormComponent() {
             if (!calendar?.contains(e.target) && e.target != input) {
                 setIsVisible("calendar--invisible");
             } else if (e.target?.classList.contains("calendar__day")) {
-                console.log("?");
                 setIsVisible("calendar--invisible");
             }
         })
@@ -88,11 +87,6 @@ export function FormComponent() {
 
     function showCalendar() {
         setIsVisible("");
-    }
-
-
-    function prepareRadios() {
-        
     }
 
     function storeForm(formData: FormData) {
@@ -104,31 +98,24 @@ export function FormComponent() {
                 let value = pair[1] as string;
                 if (key == "date") {
                     var date = value.split(".");
-                    console.log(date);
-                    value = [date[2], date[1], date[0]].join("-");
-                    result.set(key, value);
+                    var timeStamp = new Date(parseInt(date[2]), parseInt(date[1]), parseInt(date[0])).getTime();
+                    result.set(key, timeStamp);
                 } else if (value == "on") {
                 } else {
                     result.set(key, { value: value });
                 }
             }
-            console.log(new Map([...result, ...radios]));
-
-            dispatch(saveForm({ ...Object.fromEntries(result) }));
+            var tmp = new Map([...result, ...radios]);
+            dispatch(saveForm(Object.fromEntries(tmp.entries())));
         }
     }
 
     function onChangeRadio(e) {
-        // often on dangerous3
-
         var target = e.target;
         var id = target.id;
         var value = target.value;
         var name = target.name;
         radios.set(name, { value: id });
-        console.log(id + " " + value + " " + name);
-
-
     }
 
     var items = [];
@@ -136,7 +123,6 @@ export function FormComponent() {
     function drawItems() {
         for (let q = 0; q < chapters.length; q++) {
             const chapter = chapters[q];
-
             items.push(<li className="form__questions-item" key={q}>
                 <header className="form__chapter">
                     <h5 className="form__chapter-text">{chapter.header}</h5>
@@ -149,7 +135,11 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="very-rare" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
+                                    <input defaultChecked={
+                                        idx > 1 ?
+                                            formState[chapter.names[1] + idx].value == "very-rare" ? true : false :
+                                            formState[chapter.names[0] + idx].value == "very-rare" ? true : false
+                                    } onChange={onChangeRadio} className="radio-container__input" type="radio" id="very-rare" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Очень редко</span>
                                 </label>
@@ -157,7 +147,11 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="rare" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
+                                    <input defaultChecked={
+                                        idx > 1 ?
+                                            formState[chapter.names[1] + idx].value == "rare" ? true : false :
+                                            formState[chapter.names[0] + idx].value == "rare" ? true : false
+                                    } onChange={onChangeRadio} className="radio-container__input" type="radio" id="rare" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Редко</span>
                                 </label>
@@ -165,7 +159,11 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="sometimes" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
+                                    <input defaultChecked={
+                                        idx > 1 ?
+                                            formState[chapter.names[1] + idx].value == "sometimes" ? true : false :
+                                            formState[chapter.names[0] + idx].value == "sometimes" ? true : false
+                                    } onChange={onChangeRadio} className="radio-container__input" type="radio" id="sometimes" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Иногда</span>
                                 </label>
@@ -173,7 +171,11 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="often" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
+                                    <input defaultChecked={
+                                        idx > 1 ?
+                                            formState[chapter.names[1] + idx].value == "often" ? true : false :
+                                            formState[chapter.names[0] + idx].value == "often" ? true : false
+                                    } onChange={onChangeRadio} className="radio-container__input" type="radio" id="often" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Часто</span>
                                 </label>
@@ -181,7 +183,11 @@ export function FormComponent() {
 
                             <div >
                                 <label className="radio-container" >
-                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="always" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
+                                    <input defaultChecked={
+                                        idx > 1 ?
+                                            formState[chapter.names[1] + idx].value == "always" ? true : false :
+                                            formState[chapter.names[0] + idx].value == "always" ? true : false
+                                    } onChange={onChangeRadio} className="radio-container__input" type="radio" id="always" name={idx > 1 ? chapter.names[1] + idx : chapter.names[0] + idx} />
                                     <span className="radio-container__checkmark"></span>
                                     <span className="radio-container__text">Всегда</span>
                                 </label>
@@ -208,7 +214,7 @@ export function FormComponent() {
 
             <div className="form__child-name-container">
                 <label className="form__child-name-label" htmlFor="child-name">Имя ребенка</label>
-                <input className="nostyle-input input" type="text" id="child-name" name="child-name" defaultValue={formState['child-name']} />
+                <input className="nostyle-input input" type="text" id="child-name" name="child-name" defaultValue={formState['child-name'].value} />
             </div>
 
             <div className="form__date-input-container">
@@ -224,14 +230,18 @@ export function FormComponent() {
                 <div className="form__child-sex-radios">
                     <div>
                         <label className="radio-container">
-                            <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="man" name="sex" />
+                            <input defaultChecked={
+                                formState.sex.value == "man" ? true : false
+                            } onChange={onChangeRadio} className="radio-container__input" type="radio" id="man" name="sex" />
                             <span className="radio-container__checkmark"></span>
                             <span className="radio-container__text">Мужской</span>
                         </label>
                     </div>
                     <div>
                         <label className="radio-container">
-                            <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="woman" name="sex" />
+                            <input defaultChecked={
+                                formState.sex.value == "woman" ? true : false
+                            } onChange={onChangeRadio} className="radio-container__input" type="radio" id="woman" name="sex" />
                             <span className="radio-container__checkmark"></span>
                             <span className="radio-container__text">Женский</span>
                         </label>
@@ -241,7 +251,7 @@ export function FormComponent() {
 
             <div className="form__parent-name-container">
                 <label className="form__parent-name-label" htmlFor="parent-name">Имя родителя, заполняющего анкету</label>
-                <input className="form__parent-name-input input" type="text" id="parent-name" name="parent-name" />
+                <input defaultValue={formState["parent-name"].value} className="form__parent-name-input input" type="text" id="parent-name" name="parent-name" />
             </div>
 
             <div className="form__notice-container">
@@ -263,69 +273,79 @@ export function FormComponent() {
                         <h5 className="form__chapter-text">Раздел 5. Общие вопросы</h5>
                     </header>
 
-                    <fieldset className="four-fieldset form__radios nostyle-fieldset">
+                    <fieldset className="four-fieldset form__radios-last nostyle-fieldset">
                         <legend className="four-fieldset__legend">Как вы оцениваете общее эмоциональное состояние вашего ребенка?</legend>
 
-                        <div className="four-fieldset__question">
-                            <div >
+                        <div className="four-fieldset__question-last">
+                            <div className="four-fieldset__wrapp">
                                 <label className="radio-container" >
-                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="very-rare" name="child-emotions" />
+                                    <input defaultChecked={
+                                        formState['child-emotions'].value == "very-rare" ? true : false
+                                    } onChange={onChangeRadio} className="radio-container__input" type="radio" id="very-rare" name="child-emotions" />
                                     <span className="radio-container__checkmark"></span>
-                                    <span className="radio-container__text">Очень редко</span>
+                                    <span className="radio-container__text">Отличное</span>
                                 </label>
                             </div>
 
-                            <div >
+                            <div className="four-fieldset__wrapp">
                                 <label className="radio-container" >
-                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="rare" name="child-emotions" />
+                                    <input defaultChecked={
+                                        formState['child-emotions'].value == "rare" ? true : false
+                                    } onChange={onChangeRadio} className="radio-container__input" type="radio" id="rare" name="child-emotions" />
                                     <span className="radio-container__checkmark"></span>
-                                    <span className="radio-container__text">Редко</span>
+                                    <span className="radio-container__text">Хорошее</span>
                                 </label>
                             </div>
 
-                            <div >
+                            <div className="four-fieldset__wrapp">
                                 <label className="radio-container" >
-                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="sometimes" name="child-emotions" />
+                                    <input defaultChecked={
+                                        formState['child-emotions'].value == "sometimes" ? true : false
+                                    } onChange={onChangeRadio} className="radio-container__input" type="radio" id="sometimes" name="child-emotions" />
                                     <span className="radio-container__checkmark"></span>
-                                    <span className="radio-container__text">Иногда</span>
+                                    <span className="radio-container__text">Удовлетворительное</span>
                                 </label>
                             </div>
 
-                            <div >
+                            <div className="four-fieldset__wrapp">
                                 <label className="radio-container" >
-                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="often" name="child-emotions" />
+                                    <input defaultChecked={
+                                        formState['child-emotions'].value == "often" ? true : false
+                                    } onChange={onChangeRadio} className="radio-container__input" type="radio" id="often" name="child-emotions" />
                                     <span className="radio-container__checkmark"></span>
-                                    <span className="radio-container__text">Часто</span>
+                                    <span className="radio-container__text">Неудовлетворительное</span>
                                 </label>
                             </div>
 
-                            <div >
+                            <div className="four-fieldset__wrapp">
                                 <label className="radio-container" >
-                                    <input onChange={onChangeRadio} className="radio-container__input" type="radio" id="always" name="child-emotions" />
+                                    <input defaultChecked={
+                                        formState['child-emotions'].value == "always" ? true : false
+                                    } onChange={onChangeRadio} className="radio-container__input" type="radio" id="always" name="child-emotions" />
                                     <span className="radio-container__checkmark"></span>
-                                    <span className="radio-container__text">Всегда</span>
+                                    <span className="radio-container__text">Очень плохое</span>
                                 </label>
                             </div>
 
                         </div>
                     </fieldset>
 
-                    <fieldset className="four-fieldset nostyle-fieldset">
+                    <fieldset className="four-fieldset form__textareas nostyle-fieldset">
                         <div className="four-fieldset__textarea-container">
                             <label className="four-fieldset__textarea-label" htmlFor="more">Есть ли у вашего ребенка какие-либо особенности развития или поведения о которых Вы хотели бы сообщить дополнительно?</label>
-                            <textarea className="textarea" name="peculiarities" id="more"></textarea>
+                            <textarea defaultValue={formState.peculiarities.value} className="textarea" name="peculiarities" id="more"></textarea>
                         </div>
                         <div className="four-fieldset__textarea-container">
                             <label className="four-fieldset__textarea-label" htmlFor="powers">Какие, на Ваш взгляд, сильные стороны и таланты есть у Вашего ребенка?</label>
-                            <textarea className="textarea" name="talents" id="powers"></textarea>
+                            <textarea defaultValue={formState.talents.value} className="textarea" name="talents" id="powers"></textarea>
                         </div>
                         <div className="four-fieldset__textarea-container">
                             <label className="four-fieldset__textarea-label" htmlFor="attention">Какие, на Ваш взгляд, области требуют особого внимания и развития у Вашего ребенка?</label>
-                            <textarea className="textarea" name="attention" id="attention"></textarea>
+                            <textarea defaultValue={formState.attention.value} className="textarea" name="attention" id="attention"></textarea>
                         </div>
                         <div className="four-fieldset__textarea-container">
                             <label className="four-fieldset__textarea-label">Обращались ли Вы ранее к специалистам (психологу, неврологу, логопеду) по поводу развития или поведения Вашего ребенка?</label>
-                            <textarea className="textarea" name="psy" id="doctors"></textarea>
+                            <textarea defaultValue={formState.psy.value} className="textarea" name="psy" id="doctors"></textarea>
                         </div>
                     </fieldset>
                 </li>
@@ -337,10 +357,14 @@ export function FormComponent() {
             <span className="form-footer__stage">Шаг 2/3</span>
 
             <div className="form-footer__buttons">
-                <button className="form-footer__btn form-footer__btn-previous btn btn--previous btn-smooth nostyle-btn" onClick={(e) => { navigate("/testing/1") }}>К загрузке рисунков</button>
+                <button className="form-footer__btn form-footer__btn-previous btn btn--previous btn-smooth nostyle-btn"
+                    onClick={(e) => {
+                        navigate("/testing/1", { state: { previous: "/testing/2" } })
+                    }}>К загрузке рисунков</button>
                 <button className="form-footer__btn form-footer__btn-result btn btn--result btn--disabled nostyle-btn" onClick={
                     (e) => {
                         storeForm(new FormData(formRef.current));
+                        navigate("/result")
                     }
                 }>Узнать результаты</button>
             </div>

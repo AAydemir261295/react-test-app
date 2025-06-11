@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const formReducer = createSlice({
     name: "form",
     initialState: {
-        "child-name,date": { value: "" },
+        "child-name": { value: "" },
         "sex": { value: "" },
         "parent-name": { value: "" },
         "radosti0": { value: "" },

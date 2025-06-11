@@ -9,6 +9,7 @@
     align-items: flex-end;
     width: 776px;
     margin-top: 50px;
+    padding-bottom: 20px;
 
     &__btn {
         height: 40px;
@@ -26,12 +27,27 @@
         width: 264px;
     }
 
+    &__btn-download {
+        width: 264px;
+    }
+
+    &__btn-share {
+        width: 262px;
+    }
+
     &__buttons {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         width: 481px;
+    }
 
+
+    &__buttons-result {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 535px;
     }
 
 

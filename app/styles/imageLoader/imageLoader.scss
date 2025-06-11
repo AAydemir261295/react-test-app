@@ -2,13 +2,15 @@
 
 
 .image-loader {
-    display: flex;
-    flex-direction: column;
 
-    &__header {
-        display: flex;
-        flex-direction: column;
-    }
+    // justify-content: center;
+
+    // &__header {
+    // display: flex;
+    //     display: flex;
+    //     flex-direction: column;
+    //     align-self: flex-start;
+    // }
 
     &__header-title {
         font-family: bold;
@@ -42,22 +44,88 @@
 }
 
 
-@media screen and (min-width: 296px) {}
+@media screen and (min-width: 296px) and (max-width: 380px) {}
 
-@media screen and (min-width: 380px) {}
+@media screen and (min-width: 380px) and (max-width: 600px) {
 
-@media screen and (min-width: 600px) {}
+    .image-loader {
+        &__header-info-text {
+            width: 350px;
+        }
+    }
 
-@media screen and (min-width: 640px) {}
+}
 
-@media screen and (min-width: 904px) {}
+@media screen and (min-width: 600px) and (max-width: 640px) {
+
+    .image-loader {
+        &__header-info-text {
+            width: 510px;
+        }
+    }
+}
+
+@media screen and (min-width: 640px) and (max-width: 904px) {
+
+    .image-loader {
+        display: flex;
+        flex-direction: column;
+        // align-items: flex-end;
+        margin-top: 20px;
+        // width: 500px;
+
+
+        &__header {
+            display: flex;
+            flex-direction: column;
+            // align-self: flex-start;
+        }
+
+        &__header-info-text {
+            width: 510px;
+        }
+
+
+    }
+}
+
+@media screen and (min-width: 904px) and (max-width: 1200px) {
+
+    .image-loader {
+        display: flex;
+        flex-direction: column;
+        margin-top: 40px;
+        width: 776px;
+
+        &__header {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__header-info-text {
+            width: 510px;
+        }
+
+
+    }
+}
 
 @media screen and (min-width: 1200px) {
 
     .image-loader {
+        display: flex;
+        flex-direction: column;
         margin-top: 40px;
+        width: 776px;
 
-        &__header-title {}
+        &__header {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__upload-list {}
+
+
 
         &__header-info-text {
             width: 510px;

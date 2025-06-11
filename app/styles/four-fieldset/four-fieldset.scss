@@ -1,13 +1,28 @@
 .four-fieldset {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-around;
 
     &__question {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         height: 50px;
+    }
+
+    &__wrapp {
+        display: inline-block;
+        margin-right: 80px;
+        margin-top: 5px;
+
+        &:nth-child(4) {
+            margin-left: 80px;
+        }
+
+        &:nth-child(5) {
+            margin-left: 90px;
+        }
+
     }
 
     &__legend {
@@ -21,12 +36,12 @@
         margin-bottom: 30px;
     }
 
-    &__textarea-label{
+    &__textarea-label {
         font-family: regular;
         font-size: 16px;
         margin-bottom: 5px;
     }
 
-    
+
 
 }

@@ -3,15 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { refreshImage, saveImages, updateIcon } from "~/store/reducers/imageReducer";
 
+const icons = {
+    upload: "/assets/icons/upload-icon.svg", refresh: "/assets/icons/refresh-icon.svg"
+}
+
 export function ImageLoaderComponent() {
-    var icons = { upload: "/assets/icons/upload-icon.svg", refresh: "/assets/icons/refresh-icon.svg" }
     var dispatch = useDispatch();
     var navigate = useNavigate();
     var imagesSrc = useSelector(state => state.images);
     var [uploadCount, setUploadCount] = useState(imagesSrc.uploadCount);
     var [uploadIcons, setUploadIcons] = useState([icons[imagesSrc.icons[0]], icons[imagesSrc.icons[1]], icons[imagesSrc.icons[2]]]);
 
-    console.log(uploadIcons);
     var descriptions = ["Дом, дерево, человек", "Несуществующее животное", "Автопортрет"];
 
     var items = [];
@@ -72,7 +74,7 @@ export function ImageLoaderComponent() {
         </header>
 
         <form className="test">
-            <ul className="nostyle-list upload-list">
+            <ul className="nostyle-list image-loader__upload-list upload-list">
                 {items}
             </ul>
         </form>

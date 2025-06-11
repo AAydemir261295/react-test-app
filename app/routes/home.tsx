@@ -1,8 +1,9 @@
 import type { Route } from "../+types/root";
 import { Outlet, useLocation } from "react-router";
 import { StatusBar } from "~/components/StatusBar/StatusBar";
-import { connect, Provider } from "react-redux";
+import { Provider } from "react-redux";
 import { store } from "~/store/store";
+import { useRef } from "react";
 
 
 
@@ -14,14 +15,13 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function Home() {
   const location = useLocation();
-
+  var reference = useRef(null);
 
 
   return <Provider store={store}><main>
-    <div className="container">
-      {/* <button onClick={() => console.log(store.getState())}>asfdf</button> */}
+    <div ref={reference} className="container">
       <StatusBar route={location}></StatusBar>
-      <Outlet />
+      <Outlet context={reference} />
     </div>
   </main>
   </Provider >;
