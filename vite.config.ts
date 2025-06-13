@@ -5,5 +5,5 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [reactRouter(), tsconfigPaths()],
-  base: "/react-rest-app/client"
+  base: "/react-test-app/client"
 });
