@@ -1,0 +1,1 @@
+import{w as e,v as o,o as t}from"./chunk-NL6KNZEE-9bHJ3GrR.js";const i=e(function(){var n=o();return t.jsx("div",{className:"btn-container",children:t.jsx("button",{className:"btn-container__btn btn nostyle-btn",onClick:()=>{n("/testing/1")},children:"Начать тест"})})});export{i as default};
