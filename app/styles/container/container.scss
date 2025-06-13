@@ -5,10 +5,10 @@
     background-color: c.$surface1;
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding-bottom: 20px;
     border-radius: 20px;
     overflow: hidden;
+    height: auto;
 
     &__status-bar {
         background-color: c.$blue050;
@@ -28,28 +28,24 @@
 @media screen and (min-width: 296px) and (max-width: 380px) {
     .container {
         width: 296px;
-        height: 538px;
     }
 }
 
 @media screen and (min-width: 380px) and (max-width: 600px) {
     .container {
         width: 380px;
-        height: 538px;
     }
 }
 
 @media screen and (min-width: 600px) and (max-width: 640px) {
     .container {
         width: 600px;
-        min-height: 302px;
     }
 }
 
 @media screen and (min-width: 640px) and (max-width: 904px) {
     .container {
         width: 600px;
-        min-height: 480px;
     }
 
 }
@@ -58,7 +54,6 @@
 
     .container {
         width: 900px;
-        min-height: 480px;
     }
 
 }
@@ -67,6 +62,5 @@
 
     .container {
         width: 900px;
-        min-height: 480px;
     }
 }

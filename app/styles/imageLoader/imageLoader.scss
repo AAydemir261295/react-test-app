@@ -3,54 +3,85 @@
 
 .image-loader {
 
-    // justify-content: center;
-
-    // &__header {
-    // display: flex;
-    //     display: flex;
-    //     flex-direction: column;
-    //     align-self: flex-start;
-    // }
-
     &__header-title {
         font-family: bold;
         font-size: 20px;
         color: c.$default;
     }
 
-    &__header-info-text {
-        border-radius: 30px;
+    &__header-info-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         background-color: c.$red050;
+        border-radius: 30px;
+    }
+
+    &__header-info-icon {
+        background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 2V2C11.314 2 14 4.686 14 8V8C14 11.314 11.314 14 8 14V14C4.686 14 2 11.314 2 8V8C2 4.686 4.686 2 8 2Z' stroke='%23E12828' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M7.99935 8.33333V5' stroke='%23E12828' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M7.99868 10.6667C7.90668 10.6667 7.83202 10.7413 7.83268 10.8333C7.83268 10.9253 7.90735 11 7.99935 11C8.09135 11 8.16602 10.9253 8.16602 10.8333C8.16602 10.7413 8.09135 10.6667 7.99868 10.6667' stroke='%23E12828' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+        background-repeat: no-repeat;
+        background-position: 50%;
+        width: 20px;
+        height: 20px;
+        margin-left: 10px;
+        margin-right: 5px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+    }
+
+
+    &__header-info-text {
         color: c.$red110;
         font-family: regular;
         font-size: 14px;
-        padding-top: 3px;
-        margin-bottom: 20px;
     }
-
-    &__header-info-text::before {
-        display: inline-block;
-        content: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 2V2C11.314 2 14 4.686 14 8V8C14 11.314 11.314 14 8 14V14C4.686 14 2 11.314 2 8V8C2 4.686 4.686 2 8 2Z' stroke='%23E12828' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M7.99935 8.33333V5' stroke='%23E12828' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M7.99868 10.6667C7.90668 10.6667 7.83202 10.7413 7.83268 10.8333C7.83268 10.9253 7.90735 11 7.99935 11C8.09135 11 8.16602 10.9253 8.16602 10.8333C8.16602 10.7413 8.09135 10.6667 7.99868 10.6667' stroke='%23E12828' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
-        vertical-align: middle;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-
-
-
-
-    &__footer {}
 
 }
 
 
-@media screen and (min-width: 296px) and (max-width: 380px) {}
+@media screen and (min-width: 296px) and (max-width: 380px) {
+
+    .image-loader {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+
+        &__header-info-container {
+            height: 76px;
+            width: 264px;
+        }
+
+        &__form {
+            margin-top: 20px;
+        }
+
+        &__footer {
+            margin-top: 10px;
+        }
+    }
+}
 
 @media screen and (min-width: 380px) and (max-width: 600px) {
 
     .image-loader {
-        &__header-info-text {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+
+        &__header-info-container {
             width: 350px;
+        }
+
+        &__form {
+            margin-top: 20px;
+        }
+
+        &__footer {
+            margin-top: 20px;
         }
     }
 
@@ -59,8 +90,24 @@
 @media screen and (min-width: 600px) and (max-width: 640px) {
 
     .image-loader {
-        &__header-info-text {
-            width: 510px;
+
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        padding-left: 30px;
+        padding-right: 30px;
+
+        &__header-info-container {
+            height: 36px;
+            width: 487px;
+        }
+
+        &__form {
+            margin-top: 40px;
+        }
+
+        &__footer {
+            margin-top: 35px;
         }
     }
 }
@@ -70,19 +117,21 @@
     .image-loader {
         display: flex;
         flex-direction: column;
-        // align-items: flex-end;
         margin-top: 20px;
-        // width: 500px;
+        padding-left: 30px;
+        padding-right: 30px;
 
-
-        &__header {
-            display: flex;
-            flex-direction: column;
-            // align-self: flex-start;
+        &__header-info-container {
+            height: 36px;
+            width: 487px;
         }
 
-        &__header-info-text {
-            width: 510px;
+        &__form {
+            margin-top: 40px;
+        }
+
+        &__footer {
+            margin-top: 35px;
         }
 
 
@@ -95,15 +144,21 @@
         display: flex;
         flex-direction: column;
         margin-top: 40px;
-        width: 776px;
+        padding-left: 60px;
+        padding-right: 60px;
 
-        &__header {
-            display: flex;
-            flex-direction: column;
+
+        &__header-info-container {
+            height: 36px;
+            width: 487px;
         }
 
-        &__header-info-text {
-            width: 510px;
+        &__form {
+            margin-top: 30px;
+        }
+
+        &__footer {
+            margin-top: 50px;
         }
 
 
@@ -116,31 +171,19 @@
         display: flex;
         flex-direction: column;
         margin-top: 40px;
-        width: 776px;
+        padding-left: 60px;
+        padding-right: 60px;
 
-        &__header {
-            display: flex;
-            flex-direction: column;
+        &__header-info-container {
+            height: 36px;
+            width: 487px;
         }
 
-        &__upload-list {}
-
-
-
-        &__header-info-text {
-            width: 510px;
+        &__form {
+            margin-top: 30px;
         }
-
-        &__header-info-text::before {}
-
-
 
         &__footer {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            width: 776px;
             margin-top: 50px;
         }
 

@@ -15,6 +15,8 @@
 @import url("/app/styles/four-fieldset/four-fieldset.scss");
 @import url("/app/styles/form-footer/form-footer.scss");
 @import url("/app/styles/result/result.scss");
+@import url("/app/styles/result-container/result-container.scss");
+
 
 html {
   margin: auto;
@@ -33,35 +35,35 @@ body {
   min-width: 100vh;
 }
 
-@media screen and (min-width: 296px) and (max-width: 380px) {
+@media screen and (max-width: 380px) {
   body {
     min-height: 100vh;
     min-width: 296px;
   }
 }
 
-@media screen and (min-width: 380px) and (max-width: 600px) {
+@media screen and (max-width: 600px) {
   body {
     min-height: 100vh;
     min-width: 380px;
   }
 }
 
-@media screen and (min-width: 600px) and (max-width: 640px) {
+@media screen and (max-width: 640px) {
   body {
     min-height: 100vh;
     min-width: 600px;
   }
 }
 
-@media screen and (min-width: 640px) and (max-width: 904px) {
+@media screen and (max-width: 904px) {
   body {
     min-height: 100vh;
     min-width: 640px;
   }
 }
 
-@media screen and (min-width: 904px) and (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
   body {
     min-height: 100vh;
     min-width: 904px;

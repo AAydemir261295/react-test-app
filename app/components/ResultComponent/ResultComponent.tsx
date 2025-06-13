@@ -35,10 +35,10 @@ export function ResultComponent() {
     return <div className="result-container">
         <div className="result-container__content">
             <header>
-                <h1>**Психологический отчёт о ребёнке {age + " " + yearsString}**</h1>
+                <h1 className="result-container__title">**Психологический отчёт о ребёнке {age + " " + yearsString}**</h1>
             </header>
 
-            <p>
+            <p className="result-container__paragraph">
                 ##📚Краткая сводка <br />
                 <br />
                 ***Имя ребёнка:** {formState['child-name'].value} <br />
@@ -161,14 +161,18 @@ export function ResultComponent() {
             </p>
 
         </div>
-        <footer className="form-footer">
-            <span className="form-footer__stage">Шаг 3/3</span>
 
-            <div className="form-footer__buttons-result">
-                <button className="form-footer__btn form-footer__btn-download btn btn--primary btn--download nostyle-btn" onClick={(e) => {
-                    generatePDF(() => outletContext.current, { filename: "result.pdf" })
-                }}>Скачать отчет PDF</button>
-                <button className="form-footer__btn form-footer__btn-share btn btn--primary btn--share nostyle-btn">Поделиться результатами</button>
+
+        <footer className="form-footer">
+            <div className="form-footer__result-wrapp">
+                <span className="form-footer__stage form-footer__result-stage">Шаг 3/3</span>
+
+                <div className="form-footer__result-btns">
+                    <button className="form-footer__btn form-footer__btn-download btn btn--primary btn--download nostyle-btn" onClick={(e) => {
+                        generatePDF(() => outletContext.current, { filename: "result.pdf" })
+                    }}>Скачать отчет PDF</button>
+                    <button className="form-footer__btn form-footer__btn-share btn btn--primary btn--share nostyle-btn">Поделиться результатами</button>
+                </div>
             </div>
         </footer>
     </div>;

@@ -66,6 +66,7 @@ export function FormComponent() {
     // var [date, setDate] = useState(new Date(Date.now()));
     var [isVisible, setIsVisible] = useState("calendar--invisible");
     var formState = useSelector(state => state.form);
+    var uploadedImgs = useSelector(state => state.images.uploadCount);
 
     var formRef = useRef(null);
 
@@ -73,6 +74,9 @@ export function FormComponent() {
 
 
     useEffect(() => {
+        // if (uploadedImgs == 0) {
+        //     navigate("/testing/1", { state: { previous: "/testing/2" } });
+        // }
         var calendar = document.querySelector(".calendar");
         var input = document.querySelector(".form__date-input");
         document.addEventListener("click", (e) => {
@@ -123,7 +127,7 @@ export function FormComponent() {
     function drawItems() {
         for (let q = 0; q < chapters.length; q++) {
             const chapter = chapters[q];
-            items.push(<li className="form__questions-item" key={q}>
+            items.push(<li key={q}>
                 <header className="form__chapter">
                     <h5 className="form__chapter-text">{chapter.header}</h5>
                 </header>
@@ -354,19 +358,21 @@ export function FormComponent() {
 
         </form>
         <footer className="form-footer">
-            <span className="form-footer__stage">Шаг 2/3</span>
+            <div className="form-footer__form-wrapp">
+                <span className="form-footer__stage form-footer__form-stage">Шаг 2/3</span>
 
-            <div className="form-footer__buttons">
-                <button className="form-footer__btn form-footer__btn-previous btn btn--previous btn-smooth nostyle-btn"
-                    onClick={(e) => {
-                        navigate("/testing/1", { state: { previous: "/testing/2" } })
-                    }}>К загрузке рисунков</button>
-                <button className="form-footer__btn form-footer__btn-result btn btn--result btn--disabled nostyle-btn" onClick={
-                    (e) => {
-                        storeForm(new FormData(formRef.current));
-                        navigate("/result")
-                    }
-                }>Узнать результаты</button>
+                <div className="form-footer__form-btns">
+                    <button className="form-footer__btn form-footer__btn-previous btn btn--previous btn-smooth nostyle-btn"
+                        onClick={(e) => {
+                            navigate("/testing/1", { state: { previous: "/testing/2" } })
+                        }}>К загрузке рисунков</button>
+                    <button className="form-footer__btn form-footer__btn-result btn btn--result btn--disabled nostyle-btn" onClick={
+                        (e) => {
+                            storeForm(new FormData(formRef.current));
+                            navigate("/result")
+                        }
+                    }>Узнать результаты</button>
+                </div>
             </div>
         </footer>
     </div >;
