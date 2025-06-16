@@ -13,6 +13,7 @@ export function ImageLoaderComponent() {
     var imagesSrc = useSelector(state => state.images);
     var [uploadCount, setUploadCount] = useState(imagesSrc.uploadCount);
     var [uploadIcons, setUploadIcons] = useState([icons[imagesSrc.icons[0]], icons[imagesSrc.icons[1]], icons[imagesSrc.icons[2]]]);
+    var [nextBtnRefCss, setNextBtnRefCss] = useState("image-loader__btn-next btn btn--next btn--disabled nostyle-btn");
 
     var descriptions = ["Дом, дерево, человек", "Несуществующее животное", "Автопортрет"];
 
@@ -20,6 +21,12 @@ export function ImageLoaderComponent() {
 
     var previewRefs = useRef([]);
 
+
+    function activateButton() {
+        if (uploadCount >= 2) {
+            setNextBtnRefCss(nextBtnRefCss + " btn--active")
+        }
+    }
 
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>, idx: number, previewEle: HTMLImageElement) {
@@ -38,14 +45,16 @@ export function ImageLoaderComponent() {
             setUploadIcons(t);
             dispatch(updateIcon(update))
             setUploadCount(uploadCount + 1);
+            activateButton();
         };
     }
 
 
-    function uploadImages() {
+    function uploadImages(formData: FormData) {
         dispatch(saveImages(
             { 0: previewRefs.current[0].src, 1: previewRefs.current[1].src, 2: previewRefs.current[2].src })
         );
+        navigate("/testing/2", { state: { previous: "/testing/1" } });
     }
 
     for (let q = 0; q < 3; q++) {
@@ -71,7 +80,7 @@ export function ImageLoaderComponent() {
 
                     <input onChange={(e) => onChange(e, q, previewRefs.current[q])}
                         className="upload-list__upload-input"
-                        id={`fileInput${q}`} type="file" />
+                        id={`fileInput${q}`} name={`img-upload-${q}`} type="file" />
 
 
                     <figcaption className="upload-list__upload-description">{description}</figcaption>
@@ -81,8 +90,6 @@ export function ImageLoaderComponent() {
             </li>
         )
     }
-
-
 
 
     return <div className="image-loader">
@@ -96,24 +103,14 @@ export function ImageLoaderComponent() {
             </div>
         </header>
 
-        <form className="image-loader__form">
+        <form action={uploadImages} className="image-loader__form">
             <ul className="nostyle-list upload-list">
                 {items}
             </ul>
-        </form>
-
-        <footer className="image-loader__footer form-footer">
-            <div className="form-footer__image-wrapp">
-                <span className="form-footer__stage">Шаг 1/3</span>
-
-                <button className="form-footer__btn form-footer__btn-next btn btn--next btn--disabled nostyle-btn"
-                    onClick={() => {
-                        if (uploadCount >= 3) {
-                            navigate("/testing/2", { state: { previous: "/testing/1" } });
-                            uploadImages();
-                        }
-                    }}>Далее</button>
+            <div className="image-loader__btn-wrapp">
+                <button className={nextBtnRefCss} type="submit">Далее</button>
             </div>
-        </footer>
+        </form>
+        <span className="image-loader__stage stage">Шаг 1/3</span>
     </div>
 }

@@ -1,0 +1,6 @@
+@use "/app/styles/variables/colors.scss" as c;
+
+.stage {
+    font-family: regular;
+    color: c.$muted;
+}

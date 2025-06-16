@@ -163,17 +163,14 @@ export function ResultComponent() {
         </div>
 
 
-        <footer className="form-footer">
-            <div className="form-footer__result-wrapp">
-                <span className="form-footer__stage form-footer__result-stage">Шаг 3/3</span>
+        <div className="result-container__btns">
+            <button className="result-container__btn-download btn btn--primary btn--download nostyle-btn" onClick={(e) => {
+                generatePDF(() => outletContext.current, { filename: "result.pdf" })
+            }}>Скачать отчет PDF</button>
+            <button className="result-container__btn-share btn btn--primary btn--share nostyle-btn">Поделиться результатами</button>
+        </div>
 
-                <div className="form-footer__result-btns">
-                    <button className="form-footer__btn form-footer__btn-download btn btn--primary btn--download nostyle-btn" onClick={(e) => {
-                        generatePDF(() => outletContext.current, { filename: "result.pdf" })
-                    }}>Скачать отчет PDF</button>
-                    <button className="form-footer__btn form-footer__btn-share btn btn--primary btn--share nostyle-btn">Поделиться результатами</button>
-                </div>
-            </div>
-        </footer>
+        <span className="result-container__stage stage">Шаг 3/3</span>
+
     </div>;
 }

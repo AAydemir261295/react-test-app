@@ -4,6 +4,7 @@
 .btn {
     font-family: regular;
     border-radius: 30px;
+    height: 40px;
 }
 
 .btn--primary {
@@ -137,4 +138,9 @@
 .btn-smooth {
     color: c.$default;
     background-color: c.$blue050;
+}
+
+.btn--active {
+    color: c.$surface1;
+    background-color: c.$blue100;
 }

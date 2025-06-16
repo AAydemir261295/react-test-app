@@ -93,6 +93,8 @@ export function FormComponent() {
         setIsVisible("");
     }
 
+
+
     function storeForm(formData: FormData) {
         if (formData) {
             let values = formData.entries();
@@ -111,6 +113,7 @@ export function FormComponent() {
             }
             var tmp = new Map([...result, ...radios]);
             dispatch(saveForm(Object.fromEntries(tmp.entries())));
+            navigate("/result")
         }
     }
 
@@ -128,11 +131,11 @@ export function FormComponent() {
         for (let q = 0; q < chapters.length; q++) {
             const chapter = chapters[q];
             items.push(<li key={q}>
-                <header className="form__chapter">
-                    <h5 className="form__chapter-text">{chapter.header}</h5>
+                <header className="form-container__chapter">
+                    <h5 className="form-container__chapter-text">{chapter.header}</h5>
                 </header>
                 {chapter.questions.map((v, idx) =>
-                    <fieldset key={idx} className="four-fieldset form__radios nostyle-fieldset">
+                    <fieldset key={idx} className="four-fieldset form-container__radios nostyle-fieldset">
                         <legend className="four-fieldset__legend">{v}</legend>
 
                         <div className="four-fieldset__question">
@@ -209,29 +212,29 @@ export function FormComponent() {
     drawItems();
 
 
-    return <div className="form">
-        <header className="form__header">
-            <h3 className="form__header-text">Общая информация о ребенке</h3>
+    return <div className="form-container">
+        <header className="form-container__header">
+            <h3 className="form-container__header-text">Общая информация о ребенке</h3>
         </header>
 
-        <form ref={formRef}>
+        <form action={storeForm} className="form-container__form">
 
-            <div className="form__child-name-container">
-                <label className="form__child-name-label" htmlFor="child-name">Имя ребенка</label>
+            <div className="form-container__child-name-container">
+                <label className="form-container__child-name-label" htmlFor="child-name">Имя ребенка</label>
                 <input className="nostyle-input input" type="text" id="child-name" name="child-name" defaultValue={formState['child-name'].value} />
             </div>
 
-            <div className="form__date-input-container">
-                <label className="form__date-input-label">Дата рождения ребенка</label>
-                <input className="form__date-input nostyle-input input" value={new Date(formState['date']).toLocaleDateString("RU", { day: "2-digit", month: "2-digit", year: "numeric" })} name="date" type="text" onClick={() => showCalendar()} readOnly />
-                <CalendarComponent className="form__date-input-calendar" showCalendar={isVisible}></CalendarComponent>
+            <div className="form-container__date-input-container">
+                <label className="form-container__date-input-label">Дата рождения ребенка</label>
+                <input className="form-container__date-input nostyle-input input" value={new Date(formState['date']).toLocaleDateString("RU", { day: "2-digit", month: "2-digit", year: "numeric" })} name="date" type="text" onClick={() => showCalendar()} readOnly />
+                <CalendarComponent className="form-container__date-input-calendar" showCalendar={isVisible}></CalendarComponent>
             </div>
 
 
-            <fieldset className="form__child-sex-container nostyle-fieldset">
-                <legend className="form__child-sex-legend">Пол ребенка</legend>
+            <fieldset className="form-container__child-sex-container nostyle-fieldset">
+                <legend className="form-container__child-sex-legend">Пол ребенка</legend>
 
-                <div className="form__child-sex-radios">
+                <div className="form-container__child-sex-radios">
                     <div>
                         <label className="radio-container">
                             <input defaultChecked={
@@ -253,31 +256,31 @@ export function FormComponent() {
                 </div>
             </fieldset>
 
-            <div className="form__parent-name-container">
-                <label className="form__parent-name-label" htmlFor="parent-name">Имя родителя, заполняющего анкету</label>
-                <input defaultValue={formState["parent-name"].value} className="form__parent-name-input input" type="text" id="parent-name" name="parent-name" />
+            <div className="form-container__parent-name-container">
+                <label className="form-container__parent-name-label" htmlFor="parent-name">Имя родителя, заполняющего анкету</label>
+                <input defaultValue={formState["parent-name"].value} className="form-container__parent-name-input input" type="text" id="parent-name" name="parent-name" />
             </div>
 
-            <div className="form__notice-container">
-                <p className="form__notice-first-paragraph">
+            <div className="form-container__notice-container">
+                <p className="form-container__notice-first-paragraph">
                     Пожалуйста, внимательно прочитайте каждый вопрос
                     и выберите наиболее подходящий вариант ответа,
                     отражающий поведение и эмоциональное состояние вашего ребенка
                     в течение последних 2-4 недель. Отвечайте максимально честно и искренне,
                     так как от этого зависит точность оценки психоэмоционального развития Вашего ребенка.
                 </p>
-                <p className="form__notice-second-paragraph">Все вопросы обязательны к заполнению</p>
+                <p className="form-container__notice-second-paragraph">Все вопросы обязательны к заполнению</p>
             </div>
 
-            <ul className="form__questions nostyle-list">
+            <ul className="form-container__questions nostyle-list">
                 {items}
 
                 <li>
-                    <header className="form__chapter">
-                        <h5 className="form__chapter-text">Раздел 5. Общие вопросы</h5>
+                    <header className="form-container__chapter">
+                        <h5 className="form-container__chapter-text">Раздел 5. Общие вопросы</h5>
                     </header>
 
-                    <fieldset className="four-fieldset form__radios-last nostyle-fieldset">
+                    <fieldset className="four-fieldset form-container__radios-last nostyle-fieldset">
                         <legend className="four-fieldset__legend">Как вы оцениваете общее эмоциональное состояние вашего ребенка?</legend>
 
                         <div className="four-fieldset__question-last">
@@ -334,7 +337,7 @@ export function FormComponent() {
                         </div>
                     </fieldset>
 
-                    <fieldset className="four-fieldset form__textareas nostyle-fieldset">
+                    <fieldset className="four-fieldset form-container__textareas nostyle-fieldset">
                         <div className="four-fieldset__textarea-container">
                             <label className="four-fieldset__textarea-label" htmlFor="more">Есть ли у вашего ребенка какие-либо особенности развития или поведения о которых Вы хотели бы сообщить дополнительно?</label>
                             <textarea defaultValue={formState.peculiarities.value} className="textarea" name="peculiarities" id="more"></textarea>
@@ -355,25 +358,18 @@ export function FormComponent() {
                 </li>
             </ul>
 
+            <div className="form-container__btns">
+                <button className="form-container__btn-previous btn btn--previous btn-smooth nostyle-btn"
+                    onClick={(e) => {
+                        navigate("/testing/1", { state: { previous: "/testing/2" } })
+                    }} type="button">К загрузке рисунков</button>
+                <button className="form-container__btn-result btn btn--result btn--disabled nostyle-btn" type="submit">Узнать результаты</button>
+            </div>
+
 
         </form>
-        <footer className="form-footer">
-            <div className="form-footer__form-wrapp">
-                <span className="form-footer__stage form-footer__form-stage">Шаг 2/3</span>
 
-                <div className="form-footer__form-btns">
-                    <button className="form-footer__btn form-footer__btn-previous btn btn--previous btn-smooth nostyle-btn"
-                        onClick={(e) => {
-                            navigate("/testing/1", { state: { previous: "/testing/2" } })
-                        }}>К загрузке рисунков</button>
-                    <button className="form-footer__btn form-footer__btn-result btn btn--result btn--disabled nostyle-btn" onClick={
-                        (e) => {
-                            storeForm(new FormData(formRef.current));
-                            navigate("/result")
-                        }
-                    }>Узнать результаты</button>
-                </div>
-            </div>
-        </footer>
+        <span className="form-container__stage stage">Шаг 2/3</span>
+
     </div >;
 } 
