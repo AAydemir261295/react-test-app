@@ -63,37 +63,15 @@ const chapters = [
 export function FormComponent() {
     var navigate = useNavigate();
     var dispatch = useDispatch();
-    // var [date, setDate] = useState(new Date(Date.now()));
-    var [isVisible, setIsVisible] = useState("calendar--invisible");
-    var formState = useSelector(state => state.form);
-    var uploadedImgs = useSelector(state => state.images.uploadCount);
-
-    var formRef = useRef(null);
+    var [isVisible, setIsVisible] = useState(false);
+    var formState = useSelector((state: any) => state.form);
+    var dateInputRef = useRef(null);
 
     var radios = new Map();
 
-
-    useEffect(() => {
-        // if (uploadedImgs == 0) {
-        //     navigate("/testing/1", { state: { previous: "/testing/2" } });
-        // }
-        var calendar = document.querySelector(".calendar");
-        var input = document.querySelector(".form__date-input");
-        document.addEventListener("click", (e) => {
-            if (!calendar?.contains(e.target) && e.target != input) {
-                setIsVisible("calendar--invisible");
-            } else if (e.target?.classList.contains("calendar__day")) {
-                setIsVisible("calendar--invisible");
-            }
-        })
-    })
-
-
-    function showCalendar() {
-        setIsVisible("");
+    function changeVisibility(newState: boolean) {
+        setIsVisible(newState);
     }
-
-
 
     function storeForm(formData: FormData) {
         if (formData) {
@@ -117,15 +95,14 @@ export function FormComponent() {
         }
     }
 
-    function onChangeRadio(e) {
+    function onChangeRadio(e: any) {
         var target = e.target;
         var id = target.id;
-        var value = target.value;
         var name = target.name;
         radios.set(name, { value: id });
     }
 
-    var items = [];
+    var items: any = [];
 
     function drawItems() {
         for (let q = 0; q < chapters.length; q++) {
@@ -212,6 +189,9 @@ export function FormComponent() {
     drawItems();
 
 
+
+
+
     return <div className="form-container">
         <header className="form-container__header">
             <h3 className="form-container__header-text">Общая информация о ребенке</h3>
@@ -226,8 +206,19 @@ export function FormComponent() {
 
             <div className="form-container__date-input-container">
                 <label className="form-container__date-input-label">Дата рождения ребенка</label>
-                <input className="form-container__date-input nostyle-input input" value={new Date(formState['date']).toLocaleDateString("RU", { day: "2-digit", month: "2-digit", year: "numeric" })} name="date" type="text" onClick={() => showCalendar()} readOnly />
-                <CalendarComponent className="form-container__date-input-calendar" showCalendar={isVisible}></CalendarComponent>
+                <input className="form-container__date-input nostyle-input input"
+                    ref={dateInputRef}
+                    value={new Date(formState['date']).toLocaleDateString("RU", { day: "2-digit", month: "2-digit", year: "numeric" })} name="date" type="text"
+                    onClick={() => setIsVisible(true)} readOnly />
+                {isVisible ?
+                    <CalendarComponent
+                        dateInputRef={dateInputRef}
+                        isVisible={isVisible}
+                        changeVisibility={changeVisibility}
+                        className="form-container__date-input-calendar"></CalendarComponent> :
+                    ""
+                }
+
             </div>
 
 

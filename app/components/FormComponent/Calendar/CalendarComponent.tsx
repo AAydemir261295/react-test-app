@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateDate } from "~/store/reducers/formReducer";
 
 
-export function CalendarComponent(props) {
+export function CalendarComponent(props: any) {
     var dispatch = useDispatch();
-    var today = useSelector(state => state.form)
-    const [actualDate, setActualDate] = useState(new Date(today['date']));
-    var days = [];
+    var today = useSelector((state: any) => state.form)
+    var [actualDate, setActualDate] = useState(new Date(today['date']));
+    var days: any = [];
+
+    useEffect(() => {
+        document.addEventListener("click", (e: any) => {
+            const calendar = document.querySelector(".calendar");
+            if (!calendar?.contains(e.target) && e.target != props.dateInputRef.current) {
+                props.changeVisibility(false);
+            }
+        })
+
+    })
 
     function parseMonth() {
         var tmp = actualDate.toLocaleString("ru-RU", { month: "long" })
@@ -24,6 +34,8 @@ export function CalendarComponent(props) {
     }
 
     function chooseDay(timeStamp: Date) {
+        // setIsVisible(false);
+        props.changeVisibility(false);
         dispatch(updateDate(timeStamp.getTime()))
     }
 
@@ -67,7 +79,7 @@ export function CalendarComponent(props) {
     getDays();
 
 
-    return <div className={`calendar ${props.showCalendar}`}>
+    return <div className="calendar">
         <header className="calendar__header">
             <img className="calendar__header-left" onClick={() => { decrementMonth(); }} alt="" />
             {/* <span className="calendar__header-left">&lt;</span> */}
@@ -110,5 +122,5 @@ export function CalendarComponent(props) {
         <div>
 
         </div>
-    </div>;
+    </div >;
 }

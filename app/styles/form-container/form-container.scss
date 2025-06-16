@@ -13,6 +13,7 @@
 
 
 
+
     &__header {
         margin-bottom: 10px;
     }
@@ -38,6 +39,7 @@
     }
 
     &__date-input-container {
+        position: relative;
         display: flex;
         flex-direction: column;
         height: 66px;
@@ -46,6 +48,8 @@
         font-size: 16px;
         margin-bottom: 20px;
     }
+
+
 
     &__date-input-label {
         height: 22px;
@@ -389,7 +393,7 @@
         &__form {
             display: flex;
             flex-direction: column;
-            // justify-content: space-between;
+
         }
 
         &__notice-container {
@@ -460,6 +464,10 @@
         &__form {
             display: flex;
             flex-direction: column;
+        }
+
+        &__date-input-calendar {
+            top: 100px;
         }
 
         &__notice-container {
